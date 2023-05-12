@@ -6,16 +6,16 @@ const UserModel = require("./database/Users");
 const express = require("express");
 var cors = require("cors");
 const app = express();
+const PORT = process.env.PORT || 5000
 app.use(cors());
 app.use(express.json());
 
 // import the mongoose module
 var mongoose = require("mongoose");
 // setup default mongoose connection
-var mongoDB =
-  "mongodb+srv://akshay_pawar:akshayp1754@cluster0.whccscg.mongodb.net/bookmyshow?retryWrites=true&w=majority";
+
 mongoose
-  .connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(`${process.env.DATABASE}`)
   .then(() => console.log("connection established"));
 
 // http://localhost:5000/
@@ -46,6 +46,6 @@ app.post("/user-register", async (req, res) => {
   return res.json({ userAdded: addNewUser, message: "User was added" });
 });
 
-app.listen(5000, () => {
+app.listen(PORT, () => {
   console.log("my express app is running ...");
 });
